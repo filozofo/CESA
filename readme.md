@@ -1,4 +1,4 @@
 # CESA
 Caenorhabditis elegans survival analysis
 
-A shiny APP: http://119.91.232.179:666/CESA
+A shiny APP: http://saulsaul.com/CESA/
