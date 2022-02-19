@@ -40,5 +40,12 @@ shinyUI(fluidPage(
             tags$p(tags$b('meanse:'),"mean ± SEM, ", tags$b('pv:'),"p-value, ", tags$b('PLC:'),"percent life span change, ", tags$b('N:'),"number of each group"),
             plotOutput("plot1",
                        width = "50%",
-                       height = "500px")
+                       height = "500px"),
+            hr(),
+            div(
+              class = "footer",
+              includeHTML("icp.html")
+            )
+            
+            
 ))))
