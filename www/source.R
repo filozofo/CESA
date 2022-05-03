@@ -1,0 +1,130 @@
+Text <- "days	A1	A2	A3	A4	A5	A6	A7	A8
+11	0	0	0	0	0	0	0	0
+12								
+13	0	1	2	3	4	5	6	7
+14	1	2	3	4	5	6	7	8
+15	2	3	4	5	6	7	8	9
+16	3	4	5	6	7	8	9	10
+17	4	5	6	7	8	9	10	11
+18	5	6	7	8	9	10	11	12
+19	6	7	8	9	10	11	12	13
+20	7	8	9	10	11	12	13	14
+21	8	9	10	11	12	13	14	15
+22	9	10	11	12	13	14	15	16
+23	10	11	12	13	14	15	16	17
+24	11	12	13	14	15	16	17	18
+25	12	13	14	15	16	17	18	19
+26	13	14	15	16	17	18	19	20
+27	14	15	16	17	18	19	20	21
+28	15	16	17	18	19	20	21	22
+29	16	17	18	19	20	21	22	23
+30	17	18	19	20	21	22	23	24
+31	18	19	20	21	22	23	24	25
+32	19	20	21	22	23	24	25	26
+33								
+34								
+35	11							
+36								"
+ROUND <- function(x, keep=4){
+    x %<>%  format(scientific = F) %>% as.character
+    if(grepl("[.]", x)){
+        xSplit <- unlist(strsplit(x, "[.]"))
+        xSplitBef <- xSplit[1]
+        minusYN <- substring(xSplitBef, 1, 1)
+        #     minusYN <- minusYN == "-"
+        xSplitAft <- xSplit[2]
+        xSplitAft <- substring(xSplitAft, 1:nchar(xSplitAft), 1:nchar(xSplitAft))
+        
+        if(minusYN == "-"){
+            xSplitBef <- substring(xSplitBef, 2:nchar(xSplitBef), 2:nchar(xSplitBef))
+            lenBef <- length(xSplitBef)
+            lenAft <- length(xSplitAft)
+            
+            if(lenAft > keep){
+                all <- c(xSplitBef, xSplitAft[1:(keep + 1)])
+                if(as.integer(tail(all,1)) < 5){
+                    res1 <- c(xSplitBef, xSplitAft[1:keep])
+                    res1 <- paste(c(res1[1:lenBef], ".", res1[(lenBef+1):length(res1)]), collapse="")
+                    res1 <- -as.numeric(res1)
+                }else{
+                    res1 <- c(xSplitBef, xSplitAft[1:keep])
+                    res1 <- as.integer(res1)
+                    for(i in length(res1):1){
+                        if(i == length(res1)){
+                            res1[i] <- res1[i] + 1
+                        }
+                        if(res1[i] != 10){
+                            break
+                        }else{
+                            res1[i - 1] <- res1[i - 1] + 1
+                        }
+                    }
+                    
+                    if(res1[1] == 10){
+                        res1[-1] <- 0
+                        res1 <- c(1,0,res1[-1])
+                        res1 <- paste(c(res1[1:(lenBef+1)], ".", res1[(lenBef+2):length(res1)]), collapse="")
+                        res1 <- -as.numeric(res1)
+                    }else{
+                        res1[which(res1 == 10)] <- 0
+                        res1 <- paste(c(res1[1:lenBef], ".", res1[(lenBef+1):length(res1)]), collapse="")
+                        res1 <- -as.numeric(res1)
+                    }
+                    
+                }
+            }else{
+                res1 <- as.numeric(x)
+            }
+        }else{
+            xSplitBef <- substring(xSplitBef, 1:nchar(xSplitBef), 1:nchar(xSplitBef))
+            lenBef <- length(xSplitBef)
+            lenAft <- length(xSplitAft)
+            
+            if(lenAft > keep){
+                all <- c(xSplitBef, xSplitAft[1:(keep + 1)])
+                if(as.integer(tail(all,1)) < 5){
+                    res1 <- c(xSplitBef, xSplitAft[1:keep])
+                    res1 <- paste(c(res1[1:lenBef], ".", res1[(lenBef+1):length(res1)]), collapse="")
+                    res1 <- as.numeric(res1)
+                }else{
+                    res1 <- c(xSplitBef, xSplitAft[1:keep])
+                    res1 <- as.integer(res1)
+                    for(i in length(res1):1){
+                        if(i == length(res1)){
+                            res1[i] <- res1[i] + 1
+                        }
+                        if(res1[i] != 10){
+                            break
+                        }else{
+                            res1[i - 1] <- res1[i - 1] + 1
+                        }
+                    }
+                    
+                    if(res1[1] == 10){
+                        res1[-1] <- 0
+                        res1 <- c(1,0,res1[-1])
+                        res1 <- paste(c(res1[1:(lenBef+1)], ".", res1[(lenBef+2):length(res1)]), collapse="")
+                        res1 <- as.numeric(res1)
+                    }else{
+                        res1[which(res1 == 10)] <- 0
+                        res1 <- paste(c(res1[1:lenBef], ".", res1[(lenBef+1):length(res1)]), collapse="")
+                        res1 <- as.numeric(res1)
+                    }
+                    
+                }
+            }else{
+                res1 <- as.numeric(x)
+            }
+        }
+    }else{
+        res1 <- as.numeric(x)
+    }
+    return(res1)
+}
+
+grid.draw.ggsurvplot <- function(x){
+    survminer:::print.ggsurvplot(x, newpage = FALSE)
+}
+SE <- function (x, na.rm = TRUE) {
+    sqrt(var(x, na.rm = na.rm)/length(x[complete.cases(x)]))
+}
