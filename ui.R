@@ -2,7 +2,7 @@ library(shiny)
 library(readr)
 options(encoding="UTF-8")
 # Define UI for application that draws a histogram
-source('source.R')
+source('www/source.R')
 shinyUI(fluidPage(
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0.0/css/all.css);"),
     tags$style(
@@ -44,7 +44,7 @@ shinyUI(fluidPage(
             hr(),
             div(
               class = "footer",
-              includeHTML("icp.html")
+              includeHTML("www/icp.html")
             )
             
             
