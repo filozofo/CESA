@@ -30,8 +30,8 @@ shinyUI(fluidPage(
             tags$div(
                 tags$h3('Author'),
                 tags$h5('Chongyang Wang'),
-                tags$h5("Email: Saul@88.com"),
-                tags$a(href="https://github.com/sajesi/CESA", "github shiny repo"))
+                tags$h5("Email: complete@skiff.com"),
+                tags$a(href="https://github.com/filozofo/CESA", "Github Repo"))
         ),
         mainPanel(
             tags$h1(tags$em("Caenorhabditis elegans"),"survival analysis"),
